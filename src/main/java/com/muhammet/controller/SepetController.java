@@ -1,12 +1,15 @@
 package com.muhammet.controller;
 
+import com.muhammet.dto.request.AddSepetRequestDto;
+import com.muhammet.dto.request.RemoveAllSepetRequestDto;
+import com.muhammet.dto.request.RemoveInSepetRequestDto;
 import com.muhammet.dto.response.BaseResponse;
 import com.muhammet.service.SepetService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import static com.muhammet.config.RestApis.*;
 @RestController
 @RequiredArgsConstructor
@@ -30,8 +33,14 @@ public class SepetController {
      * sepet ürün listesine ürünleri ekle
      *
      */
-    public ResponseEntity<BaseResponse<Boolean>> addSepet(){
-        return null;
+    @PostMapping(ADD_TO_SEPET)
+    public ResponseEntity<BaseResponse<Boolean>> addSepet(@RequestBody @Valid AddSepetRequestDto dto){
+        sepetService.AddSepet(dto);
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                        .code(200)
+                        .message("Ürün sepete eklendi")
+                        .data(true)
+                .build());
     }
 
     // 2- sepetten ürünü sil
@@ -39,15 +48,32 @@ public class SepetController {
      * ürün bilgisi, kullanıcı bilgi
      * sepette o ürün varmı?
      */
-
+    @DeleteMapping(REMOVE_IN_SEPET)
+    public ResponseEntity<BaseResponse<Boolean>> removeInSepet(@RequestBody @Valid RemoveInSepetRequestDto dto){
+        sepetService.removeUrunInSepet(dto);
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                        .code(200)
+                        .message("Ürün sespetten çıkartıldı")
+                        .data(true)
+                .build());
+    }
     // 3- sepeti boşalt
     /**
      * kullanıcı bilgisi yeterli
      */
-
+    @DeleteMapping(CLEAR_SEPET)
+    public ResponseEntity<BaseResponse<Boolean>> removeAllSepet(@RequestBody @Valid RemoveAllSepetRequestDto dto){
+        sepetService.removeAllSepet(dto);
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                .code(200)
+                .message("Tüm Ürünler sespetten çıkartıldı")
+                .data(true)
+                .build());
+    }
     // 4- sepette ki ürünün saısını bir arttır ya da azalt
     /**
      * ürün bilgisi, kullanıcı bilgisi, arttırma mı azaltma mı bilgisinie ihtiyaç var
      */
+
 
 }

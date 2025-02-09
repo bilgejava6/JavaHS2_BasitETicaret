@@ -26,6 +26,11 @@ public class RestApis {
     public static final String FIND_BY_URUN_ADI = "/find-by-urun-adi";
     public static final String DELETE_URUN = "/delete-urun";
 
+    public static final String ADD_TO_SEPET = "/add-to-sepet";
+    public static final String REMOVE_IN_SEPET = "/remove-in-sepet";
+    public static final String CLEAR_SEPET = "/clear-sepet";
+    public static final String UP_DOWN_SEPET = "/up-down-sepet";
+
 
 
 
