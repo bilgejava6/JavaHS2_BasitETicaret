@@ -9,6 +9,7 @@ public class RestApis {
     public static final String KULLANICI = BASE_URL + "/kullanici";
     public static final String KATEGORI = BASE_URL + "/kategori";
     public static final String URUN = BASE_URL + "/urun";
+    public static final String SEPET = BASE_URL + "/sepet";
 
     public static final String DOREGISTER = "/register";
     public static final String LOGIN = "/login";
@@ -24,6 +25,9 @@ public class RestApis {
     public static final String GET_ALL_URUN = "/get-all-urun";
     public static final String FIND_BY_URUN_ADI = "/find-by-urun-adi";
     public static final String DELETE_URUN = "/delete-urun";
+
+
+
 
 
 

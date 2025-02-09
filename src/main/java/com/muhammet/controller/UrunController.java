@@ -18,7 +18,7 @@ import static com.muhammet.config.RestApis.*;
 @RequestMapping(URUN)
 @CrossOrigin("*")
 public class UrunController {
-    // ürün ekleme
+    // ürün ekleme  -> muhammet hoca  / muhm
     // ürün listeleme
     // ürün adına göre arama
     private final UrunService urunService;
