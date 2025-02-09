@@ -1,6 +1,7 @@
 package com.muhammet.service;
 
 import com.muhammet.dto.request.AddSepetRequestDto;
+import com.muhammet.dto.request.ArttirAzaltRequestDto;
 import com.muhammet.dto.request.RemoveAllSepetRequestDto;
 import com.muhammet.dto.request.RemoveInSepetRequestDto;
 import com.muhammet.entity.Sepet;
@@ -10,6 +11,7 @@ import com.muhammet.exception.ETicaretException;
 import com.muhammet.exception.ErrorType;
 import com.muhammet.repository.SepetRepository;
 import com.muhammet.repository.SepetUrunleriRepository;
+import com.muhammet.utility.enums.SepetDegisim;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +73,24 @@ public class SepetService {
         sepetUrunleriRepository.deleteAll(sepetListesi);
     }
 
+    public void ArttirAzalt(ArttirAzaltRequestDto dto) {
+        Long sepetId = getSepetIdFromUserId(dto.kullaniciId());
+        Optional<SepetUrunleri> sepetUrunleri = sepetUrunleriRepository.findOptionalBySepetIdAndUrunId(sepetId,dto.urunId());
+        if(sepetUrunleri.isEmpty()) throw new ETicaretException(ErrorType.SEPET_URUN_NOTFOUND);
+        SepetUrunleri urun = sepetUrunleri.get();
+        if(dto.degisim().equals(SepetDegisim.ARTTIR)){ // sayıyı arttır
+            urun.setAdet(urun.getAdet()+1);
+            sepetUrunleriRepository.save(urun);
+        }else { // azaltma işlemi
+            // DİKKAT!! ürün adedi 2 ve üzeinde ise arttırma yap, altında ise sil
+            if(urun.getAdet()>1){
+                urun.setAdet(urun.getAdet()-1);
+                sepetUrunleriRepository.save(urun);
+            }else {
+                sepetUrunleriRepository.delete(urun);
+            }
+        }
+    }
 
     /**
      * Kullanıcı Id si verilerek sepet id bilgisi alınmaktadır.
@@ -83,5 +103,6 @@ public class SepetService {
         Long sepetId = sepetOptional.get().getId();
         return sepetId;
     }
+
 
 }

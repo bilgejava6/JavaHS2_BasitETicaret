@@ -1,6 +1,7 @@
 package com.muhammet.controller;
 
 import com.muhammet.dto.request.AddSepetRequestDto;
+import com.muhammet.dto.request.ArttirAzaltRequestDto;
 import com.muhammet.dto.request.RemoveAllSepetRequestDto;
 import com.muhammet.dto.request.RemoveInSepetRequestDto;
 import com.muhammet.dto.response.BaseResponse;
@@ -74,6 +75,14 @@ public class SepetController {
     /**
      * ürün bilgisi, kullanıcı bilgisi, arttırma mı azaltma mı bilgisinie ihtiyaç var
      */
-
+    @PostMapping(UP_DOWN_SEPET)
+    public ResponseEntity<BaseResponse<Boolean>> arttirAzalt(@RequestBody @Valid ArttirAzaltRequestDto dto){
+        sepetService.ArttirAzalt(dto);
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                .code(200)
+                .message("Ürün sepet değişikliği yapıldı")
+                .data(true)
+                .build());
+    }
 
 }
