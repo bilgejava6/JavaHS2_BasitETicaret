@@ -5,7 +5,6 @@ import com.muhammet.dto.response.BaseResponse;
 import com.muhammet.entity.Kategori;
 import com.muhammet.service.KategoriService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

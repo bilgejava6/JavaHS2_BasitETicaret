@@ -15,6 +15,7 @@ public enum ErrorType {
     SIFREHATASI(4003, "Girişlen şifreler bir biri ile uyuşumamaktadır.",BAD_REQUEST),
     EMAIL_SIFRE_HATASI(4004, "Kullanıcı adı ya da şifre hatalısır", BAD_REQUEST),
     EXISTED_KATEGORI(4005, "Bu kategori zaten kayıtlıdır.", BAD_REQUEST),
+    URUN_NOTFOUND(2001, "Id si verilen ürün bulunamadı", INTERNAL_SERVER_ERROR),
     INTERNAL_SERVER(5000, "Sunucuda beklenmeyen bir hata",INTERNAL_SERVER_ERROR);
 
     int code;

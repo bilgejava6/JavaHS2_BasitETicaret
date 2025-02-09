@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorMessage> exceptionHandler(RuntimeException exception){
+        System.out.println("Exception Beklenmeyen hata....:  " + exception);
         return createErrorMessage(exception,ErrorType.INTERNAL_SERVER,HttpStatus.INTERNAL_SERVER_ERROR,null);
     }
 
