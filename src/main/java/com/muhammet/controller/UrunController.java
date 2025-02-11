@@ -7,6 +7,7 @@ import com.muhammet.service.UrunService;
 import com.muhammet.view.VwUrunList;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,22 @@ public class UrunController {
     // ürün listeleme
     // ürün adına göre arama
     private final UrunService urunService;
+
+    /**
+     * Application.yml içerisindeki bilgileri okumak
+     *
+     * bu işlem için @Value kullanılır.
+     *
+     */
+    @Value("${benim-uygulamam.urun-baslik}")
+    private String urunBaslik;
+
+    @GetMapping("/yml-okuma")
+    public ResponseEntity<Void> ymlOkuma(){
+        System.out.println("Ürün adı.......: "+ urunBaslik);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping(ADD_URUN)
     public ResponseEntity<BaseResponse<Boolean>> addUrun(@RequestBody @Valid AddUrunRequestDto dto){
         urunService.addUrun(dto);

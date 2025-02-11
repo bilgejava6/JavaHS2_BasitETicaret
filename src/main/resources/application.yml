@@ -1,12 +1,21 @@
 server:
   port: 9090
-
+## DİKKAT!!!!!!
+## YML dosyasında bulunan değerleri sistem
+## dosyalarından env(Environment Variable)-
+## sistem ortam değişkenleri  dan  alabilirsiniz.
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5435/basiteticaret
-    username: postgres
-    password: root
+    url: ${POSTGRE_URL}
+    username: ${POSTGRE_USER_NAME}
+    password: ${POSTGRE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
+
+
+
+benim-uygulamam:
+  urun-baslik: 'Yeni Java HS2 '
+  default-price: 5000
