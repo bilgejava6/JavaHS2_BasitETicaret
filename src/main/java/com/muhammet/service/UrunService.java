@@ -4,6 +4,7 @@ import com.muhammet.dto.request.AddUrunRequestDto;
 import com.muhammet.entity.Urun;
 import com.muhammet.exception.ETicaretException;
 import com.muhammet.exception.ErrorType;
+import com.muhammet.mapper.UrunMapper;
 import com.muhammet.repository.UrunRepository;
 import com.muhammet.view.VwUrunList;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,20 @@ public class UrunService {
     private final UrunRepository repository;
 
     public void addUrun(AddUrunRequestDto dto) {
-        repository.save(Urun.builder()
-                        .ad(dto.ad())
-                        .birim(dto.birim())
-                        .fiyat(dto.fiyat())
-                        .kategoriAdi(dto.kategoriAdi())
-                        .kategoriId(dto.kategoriId())
-                        .kdv(dto.kdv())
-                        .resim(dto.resim())
-                        .stok(dto.stok())
-                        .uyariMiktari(dto.uyariMiktari())
-                .build());
+//        Urun urun = Urun.builder()
+//                .ad(dto.ad())
+//                .birim(dto.birim())
+//                .fiyat(dto.fiyat())
+//                .kategoriAdi(dto.kategoriAdi())
+//                .kategoriId(dto.kategoriId())
+//                .kdv(dto.kdv())
+//                .resim(dto.resim())
+//                .stok(dto.stok())
+//                .uyariMiktari(dto.uyariMiktari())
+//                .build();
+//        repository.save(urun);
+        Urun urun = UrunMapper.INSTANCE.eyMapperDtoDanAldiklarinIleBanaUrunVer(dto);
+        repository.save(urun);
     }
 
     /**

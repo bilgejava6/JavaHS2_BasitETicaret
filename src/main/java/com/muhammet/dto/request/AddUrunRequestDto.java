@@ -19,7 +19,6 @@ public record AddUrunRequestDto(
         int stok,
         @NotNull
         Integer kdv,
-
         Birim birim,
         @NotNull
         Integer uyariMiktari
