@@ -5,11 +5,14 @@ import com.muhammet.dto.request.ArttirAzaltRequestDto;
 import com.muhammet.dto.request.RemoveAllSepetRequestDto;
 import com.muhammet.dto.request.RemoveInSepetRequestDto;
 import com.muhammet.dto.response.BaseResponse;
+import com.muhammet.dto.response.SepetUrunResponseDto;
 import com.muhammet.service.SepetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.muhammet.config.RestApis.*;
 @RestController
@@ -82,6 +85,15 @@ public class SepetController {
                 .code(200)
                 .message("Ürün sepet değişikliği yapıldı")
                 .data(true)
+                .build());
+    }
+
+    @GetMapping("/get-all-sepet/{userId}")
+    public ResponseEntity<BaseResponse<List<SepetUrunResponseDto>>> getAllSepet(@PathVariable Long userId){
+        return ResponseEntity.ok(BaseResponse.<List<SepetUrunResponseDto>>builder()
+                        .code(200)
+                        .message("Sepet Getirildi.")
+                        .data(sepetService.getAllSepet(userId))
                 .build());
     }
 

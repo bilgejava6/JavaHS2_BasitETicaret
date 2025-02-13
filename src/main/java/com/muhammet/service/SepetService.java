@@ -4,6 +4,7 @@ import com.muhammet.dto.request.AddSepetRequestDto;
 import com.muhammet.dto.request.ArttirAzaltRequestDto;
 import com.muhammet.dto.request.RemoveAllSepetRequestDto;
 import com.muhammet.dto.request.RemoveInSepetRequestDto;
+import com.muhammet.dto.response.SepetUrunResponseDto;
 import com.muhammet.entity.Sepet;
 import com.muhammet.entity.SepetUrunleri;
 import com.muhammet.entity.Urun;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,6 +93,29 @@ public class SepetService {
             }
         }
     }
+
+    public List<SepetUrunResponseDto> getAllSepet(Long userId) {
+        List<SepetUrunResponseDto> result = new ArrayList<>();
+        Long sepetId = getSepetIdFromUserId(userId);
+        List<SepetUrunleri> sepetList = sepetUrunleriRepository.findAllBySepetId(sepetId);
+        sepetList.forEach(s->{
+            Optional<Urun> urun = urunService.findOptionalById(s.getUrunId());
+            if(urun.isPresent()){
+                SepetUrunResponseDto dto = new SepetUrunResponseDto(
+                        s.getId(),
+                        s.getUrunId(),
+                        urun.get().getAd(),
+                        urun.get().getResim(),
+                        s.getAdet(),
+                        s.getFiyat(),
+                        s.getToplamFiyat()
+                );
+                result.add(dto);
+            }
+        });
+        return result;
+    }
+
 
     /**
      * Kullanıcı Id si verilerek sepet id bilgisi alınmaktadır.
