@@ -51,13 +51,25 @@ public class SepetService {
         Optional<Urun> urunOptional = urunService.findOptionalById(dto.urunId());
         if(urunOptional.isEmpty()) throw new ETicaretException(ErrorType.URUN_NOTFOUND);
         Urun urun = urunOptional.get();
-        SepetUrunleri sepetUrunleri = SepetUrunleri.builder()
+        /**
+         * Eğer daha önceden bu ürün sepete eklendi ise tekrar ekleme adedini arttır.
+         */
+        Optional<SepetUrunleri> su = sepetUrunleriRepository.findOptionalBySepetIdAndUrunId(sepet.getId(),dto.urunId());
+        SepetUrunleri sepetUrunleri;
+        if(su.isEmpty())
+            sepetUrunleri = SepetUrunleri.builder()
                 .sepetId(sepet.getId())
                 .urunId(dto.urunId())
                 .adet(1)
                 .fiyat(urun.getFiyat())
                 .toplamFiyat(urun.getFiyat())
                 .build();
+        else {
+            sepetUrunleri = su.get();
+            sepetUrunleri.setAdet(sepetUrunleri.getAdet()+1);
+            sepetUrunleri.setToplamFiyat(sepetUrunleri.getFiyat().multiply(BigDecimal.valueOf(sepetUrunleri.getAdet())));
+        }
+
         sepetUrunleriRepository.save(sepetUrunleri);
     }
 
