@@ -19,3 +19,7 @@ spring:
 benim-uygulamam:
   urun-baslik: 'Yeni Java HS2 '
   default-price: 5000
+
+
+my-jwt:
+  secret-key: ${JWTKEY}

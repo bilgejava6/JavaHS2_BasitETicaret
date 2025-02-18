@@ -1,8 +1,11 @@
 package com.muhammet.controller;
 
+import com.muhammet.config.JwtManager;
 import com.muhammet.dto.request.AddUrunRequestDto;
 import com.muhammet.dto.response.BaseResponse;
 import com.muhammet.entity.Urun;
+import com.muhammet.exception.ETicaretException;
+import com.muhammet.exception.ErrorType;
 import com.muhammet.service.UrunService;
 import com.muhammet.view.VwUrunList;
 import jakarta.validation.Valid;
@@ -12,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.muhammet.config.RestApis.*;
 @RestController
@@ -23,7 +27,7 @@ public class UrunController {
     // ürün listeleme
     // ürün adına göre arama
     private final UrunService urunService;
-
+    private final JwtManager jwtManager;
     /**
      * Application.yml içerisindeki bilgileri okumak
      *
@@ -49,8 +53,11 @@ public class UrunController {
                 .build());
     }
 
-    @GetMapping(GET_ALL_URUN)
-    public ResponseEntity<BaseResponse<List<VwUrunList>>> getAllUrun(){
+    @GetMapping(GET_ALL_URUN+"/{token}")
+    public ResponseEntity<BaseResponse<List<VwUrunList>>> getAllUrun(@PathVariable String token){
+        Optional<Long> userId = jwtManager.validateToken(token);
+        if(userId.isEmpty())
+            throw new ETicaretException(ErrorType.INVALID_TOKEN);
         return ResponseEntity.ok(BaseResponse.<List<VwUrunList>>builder()
                         .code(200)
                         .message("ÜRün Listesi getirildi.")
