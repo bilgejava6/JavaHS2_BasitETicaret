@@ -14,6 +14,8 @@ import com.muhammet.repository.SepetRepository;
 import com.muhammet.repository.SepetUrunleriRepository;
 import com.muhammet.utility.enums.SepetDegisim;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,6 +29,16 @@ public class SepetService {
     private final SepetRepository sepetRepository;
     private final SepetUrunleriRepository sepetUrunleriRepository;
     private final UrunService urunService;
+
+    /**
+     * Bean -> spring otomatik olarak ürettiği nesne  SatisService satisService = new SatisService();
+     */
+    private final ISatisService satisService;
+
+    @Bean
+    private ISatisService getSatisService() {
+        return new SatisService();
+    }
 
     /**
      * ** kullanıcıId için,
@@ -128,6 +140,14 @@ public class SepetService {
         return result;
     }
 
+    public void sepetOnayla(Long userId){
+        /**
+         * sepet onayı işlemi
+         * sepet i boşaltır.
+         * sepet içerisindeki ürünleri satışa aktarır.
+         */
+        satisService.sepetAkatar(List.of());
+    }
 
     /**
      * Kullanıcı Id si verilerek sepet id bilgisi alınmaktadır.
