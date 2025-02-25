@@ -4,16 +4,23 @@ import com.muhammet.entity.Kullanici;
 import com.muhammet.repository.KullaniciRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class BaseData {
     private final KullaniciRepository kullaniciRepository;
 
     @PostConstruct
     public void init(){
-        kullaniciEkle();
+        log.error("Hata error log");
+        log.warn("log warn");
+        log.info("log info");
+        log.debug("log debug");
+        log.trace("log trace");
+
     }
 
     private void kullaniciEkle(){

@@ -5,6 +5,10 @@ server:
 ## dosyalarından env(Environment Variable)-
 ## sistem ortam değişkenleri  dan  alabilirsiniz.
 spring:
+  security:
+    user:
+      name: muhammet
+      password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL}
@@ -14,6 +18,15 @@ spring:
     hibernate:
       ddl-auto: update
 
+
+logging:
+  file:
+    name: eticaret.log
+  logback:
+    rollingpolicy:
+      max-file-size: 2MB
+  level:
+    root: info
 
 
 benim-uygulamam:
