@@ -26,4 +26,8 @@ public class KullaniciService {
     public Optional<Kullanici> findByEmailPassword(DoLoginRequestDto dto) {
         return repository.findOptionalByEmailAndSifre(dto.email(), dto.password());
     }
+
+    public Optional<Kullanici> findByUserId(Long userId) {
+        return repository.findById(userId);
+    }
 }

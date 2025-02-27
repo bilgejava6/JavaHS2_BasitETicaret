@@ -1,6 +1,7 @@
 package com.muhammet.controller;
 
 import com.muhammet.config.JwtManager;
+import com.muhammet.dto.request.AddRoleRequestDto;
 import com.muhammet.dto.request.DoLoginRequestDto;
 import com.muhammet.dto.request.DoRegisterRequestDto;
 import com.muhammet.dto.response.BaseResponse;
@@ -8,6 +9,7 @@ import com.muhammet.entity.Kullanici;
 import com.muhammet.exception.ETicaretException;
 import com.muhammet.exception.ErrorType;
 import com.muhammet.service.KullaniciService;
+import com.muhammet.service.UserRoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +24,10 @@ import static com.muhammet.config.RestApis.*;
 @CrossOrigin("*")
 public class KullaniciController {
     private final KullaniciService kullaniciService;
+    private final UserRoleService userRoleService;
     private final JwtManager jwtManager;
     @PostMapping(DOREGISTER)
-    private ResponseEntity<BaseResponse<Boolean>> doRegister(@RequestBody @Valid DoRegisterRequestDto dto){
+    public ResponseEntity<BaseResponse<Boolean>> doRegister(@RequestBody @Valid DoRegisterRequestDto dto){
         // Eğer kullanıcının şifreleri eşleşmiyor ise kayıt yapılmaz direkt hata dönülür.
         if(!dto.password().equals(dto.rePassword()))
             throw new ETicaretException(ErrorType.SIFREHATASI);
@@ -36,7 +39,7 @@ public class KullaniciController {
                 .build());
     }
     @PostMapping(LOGIN)
-    private ResponseEntity<BaseResponse<String>> doLogin(@RequestBody @Valid DoLoginRequestDto dto){
+    public ResponseEntity<BaseResponse<String>> doLogin(@RequestBody @Valid DoLoginRequestDto dto){
         // email ve şifre yi vererek kullanıcını var olup olmadığını sorguluyorum.
         Optional<Kullanici> optionalKullanici = kullaniciService.findByEmailPassword(dto);
         if(optionalKullanici.isEmpty()) // böyle bir kullanıcı yok
@@ -45,6 +48,15 @@ public class KullaniciController {
                         .code(200)
                         .data(jwtManager.createToken(optionalKullanici.get().getId()))
                         .message("Başralı şekilde giriş yapıldı.")
+                .build());
+    }
+    @PostMapping("/add-role")
+    public ResponseEntity<BaseResponse<Boolean>> addRole(@RequestBody AddRoleRequestDto dto){
+        userRoleService.addRole(dto.roleName(), dto.userId());
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                        .code(200)
+                        .message("Ok")
+                        .data(true)
                 .build());
     }
 }
