@@ -8,6 +8,7 @@ import com.muhammet.exception.ETicaretException;
 import com.muhammet.exception.ErrorType;
 import com.muhammet.service.UrunService;
 import com.muhammet.view.VwUrunList;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import static com.muhammet.config.RestApis.*;
 @RequiredArgsConstructor
 @RequestMapping(URUN)
 @CrossOrigin("*")
+@SecurityRequirement(name = "bearerAuth")
 public class UrunController {
     // ürün ekleme  -> muhammet hoca  / muhm
     // ürün listeleme

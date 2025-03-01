@@ -4,6 +4,7 @@ import com.muhammet.dto.request.AddKategoriRequestDto;
 import com.muhammet.dto.response.BaseResponse;
 import com.muhammet.entity.Kategori;
 import com.muhammet.service.KategoriService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import static com.muhammet.config.RestApis.*;
 @RequiredArgsConstructor
 @RequestMapping(KATEGORI)
 @CrossOrigin("*")
+@SecurityRequirement(name = "bearerAuth")
+
 public class KategoriController {
     private final KategoriService kategoriService;
 

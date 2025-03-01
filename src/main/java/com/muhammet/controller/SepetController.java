@@ -7,6 +7,7 @@ import com.muhammet.dto.request.RemoveInSepetRequestDto;
 import com.muhammet.dto.response.BaseResponse;
 import com.muhammet.dto.response.SepetUrunResponseDto;
 import com.muhammet.service.SepetService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import static com.muhammet.config.RestApis.*;
 @RequiredArgsConstructor
 @RequestMapping(SEPET)
 @CrossOrigin("*")
+@SecurityRequirement(name = "bearerAuth")
 public class SepetController {
     private final SepetService sepetService;
     /**

@@ -5,6 +5,7 @@
     * Entity
     - User(ad, soyad, email, sifre, telefon, adres, tc, yas,cinsiyet)
     - Randevu(userId, brans[örn: kbb, çocuk, kardio ... ],doktor, randevu günü, randevu saati, durumu)
+    - LocalDate - tarih /  LocalTime - saat
     * İşlemler
     - Proje çatısını oluşturun.(paketler oluşturulur)
     - exceptions, restapis, ...

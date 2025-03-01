@@ -41,7 +41,7 @@ public class JwtManager {
     @Value("${my-jwt.secret-key}")
     private String secretKey;
     private String issuer = "MuhammetHOCA";
-    private Long expirationDate = 1000L * 30;
+    private Long expirationDate = 1000L * 60 * 60 * 5;
     public String createToken(Long userId){
         String token="";
         Long now = System.currentTimeMillis(); // şuan ki zamanını long olarak değerini verir
