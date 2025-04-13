@@ -11,9 +11,9 @@ spring:
       password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${POSTGRE_URL}
-    username: ${POSTGRE_USER_NAME}
-    password: ${POSTGRE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/hs2eticaret
+    username: postgres
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
@@ -35,4 +35,4 @@ benim-uygulamam:
 
 
 my-jwt:
-  secret-key: ${JWTKEY}
+  secret-key: "dfvfdgşşl43534646+&/+6534g"

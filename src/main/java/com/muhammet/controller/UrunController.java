@@ -67,6 +67,15 @@ public class UrunController {
                 .build());
     }
 
+    @GetMapping(GET_ALL_URUN)
+    public ResponseEntity<BaseResponse<List<VwUrunList>>> getAllUrun(){
+        return ResponseEntity.ok(BaseResponse.<List<VwUrunList>>builder()
+                .code(200)
+                .message("ÜRün Listesi getirildi.")
+                .data(urunService.getVwUrunList())
+                .build());
+    }
+
 
     @GetMapping(FIND_BY_URUN_ADI+"/{urunAdi}")
     public ResponseEntity<BaseResponse<List<Urun>>> findByAd(@PathVariable String urunAdi){
