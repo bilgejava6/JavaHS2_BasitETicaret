@@ -19,6 +19,7 @@ public enum ErrorType {
     SEPET_NOTFOUND(2002, "KullanıcıId si verilen sepet e ait kayıt bulunamadı", INTERNAL_SERVER_ERROR),
     SEPET_URUN_NOTFOUND(2003, "Id si verilen ürün ilgili sepette bulunamadı", INTERNAL_SERVER_ERROR),
     INVALID_TOKEN(4999, "Geçersiz token bilgisi", FORBIDDEN),
+    USER_NOTFOUND(2004, "Kullanıcı bulunamadı", INTERNAL_SERVER_ERROR),
     INTERNAL_SERVER(5000, "Sunucuda beklenmeyen bir hata",INTERNAL_SERVER_ERROR);
 
     int code;

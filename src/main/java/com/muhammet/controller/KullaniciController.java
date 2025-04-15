@@ -59,4 +59,16 @@ public class KullaniciController {
                         .data(true)
                 .build());
     }
+    @GetMapping("/get-user-name/{token}")
+    public ResponseEntity<BaseResponse<String>> getUserName(@PathVariable String token){
+      Optional<Long> optionalUserId = jwtManager.validateToken(token);
+      if(optionalUserId.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
+      Optional<Kullanici> optionalKullanici =  kullaniciService.findByUserId(optionalUserId.get());
+      if(optionalKullanici.isEmpty()) throw new ETicaretException(ErrorType.USER_NOTFOUND);
+      return  ResponseEntity.ok(BaseResponse.<String>builder()
+                      .code(200)
+                      .data(optionalKullanici.get().getAd())
+                      .message("Kullanıcı adı başarı ile getirildi.")
+              .build());
+    }
 }
