@@ -49,12 +49,12 @@ public class SepetService {
      *    - bu üründen satılacak kadar stok var mıdır?
      *    - eğer bu ürün zaten sepet e eklenmiş ise tekrar ekleme yapamazsın, sayısını arttırıresın
      */
-    public void AddSepet(AddSepetRequestDto dto) {
+    public void AddSepet(AddSepetRequestDto dto, Long kullaniciId) {
         // 1. bu kişiye ait bir sepet var mıdır?
         Sepet sepet;
-        Optional<Sepet> sepetOptional = sepetRepository.findOptionalByUserId(dto.kullaniciId());
+        Optional<Sepet> sepetOptional = sepetRepository.findOptionalByUserId(kullaniciId);
         if(sepetOptional.isEmpty()){ // böyle bir sepet yok ise
-            sepet = Sepet.builder().userId(dto.kullaniciId()).build();
+            sepet = Sepet.builder().userId(kullaniciId).build();
             sepetRepository.save(sepet);
         }else {
             sepet = sepetOptional.get();

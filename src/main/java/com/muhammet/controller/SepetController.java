@@ -1,5 +1,6 @@
 package com.muhammet.controller;
 
+import com.muhammet.config.JwtManager;
 import com.muhammet.dto.request.AddSepetRequestDto;
 import com.muhammet.dto.request.ArttirAzaltRequestDto;
 import com.muhammet.dto.request.RemoveAllSepetRequestDto;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.muhammet.config.RestApis.*;
 @RestController
@@ -23,6 +25,7 @@ import static com.muhammet.config.RestApis.*;
 @SecurityRequirement(name = "bearerAuth")
 public class SepetController {
     private final SepetService sepetService;
+    private final JwtManager jwtManager;
     /**
      * Her kullanıcı için 1 adet olan bir olgu.
      * - bunun içerisine kullanıcı ekleme yapabiliyor
@@ -41,7 +44,8 @@ public class SepetController {
      */
     @PostMapping(ADD_TO_SEPET)
     public ResponseEntity<BaseResponse<Boolean>> addSepet(@RequestBody @Valid AddSepetRequestDto dto){
-        sepetService.AddSepet(dto);
+        Optional<Long> optionalUserId = jwtManager.validateToken(dto.token());
+        sepetService.AddSepet(dto, optionalUserId.get());
         return ResponseEntity.ok(BaseResponse.<Boolean>builder()
                         .code(200)
                         .message("Ürün sepete eklendi")
