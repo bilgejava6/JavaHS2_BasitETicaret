@@ -96,5 +96,15 @@ public class UrunController {
                 .build());
     }
 
+    @GetMapping("find-by-urun-id/{urunId}")
+    public ResponseEntity<BaseResponse<Urun>> findByUrunId(@PathVariable Long urunId){
+        Optional<Urun> urunOptional = urunService.findOptionalById(urunId);
+        if(urunOptional.isEmpty()) throw new ETicaretException(ErrorType.URUN_NOTFOUND);
+        return ResponseEntity.ok(BaseResponse.<Urun>builder()
+                        .code(200)
+                        .data(urunOptional.get())
+                        .message("Ürün bilgisi getirildi")
+                .build());
+    }
 
 }

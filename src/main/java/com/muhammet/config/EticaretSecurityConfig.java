@@ -34,7 +34,8 @@ public class EticaretSecurityConfig {
                         .requestMatchers("/swagger-ui/**",
                                 "v3/api-docs/**", "/dev/v1/kullanici/**",
                                 "/dev/v1/kategori/get-main-kategori",
-                                "/dev/v1/urun/get-all-urun") // belli bir URL adresine erişimi yönet.
+                                "/dev/v1/urun/get-all-urun",
+                                "dev/v1/urun/find-by-urun-id/**") // belli bir URL adresine erişimi yönet.
                         .permitAll() // yukarıdaki adres yada adreslere izin ver.
                         .requestMatchers("/dev/v1/kategori/**").hasAuthority("KATEGORI_ADMIN")
                         .requestMatchers("/dev/v1/urun/**").hasAuthority("URUN_ADMIN")
