@@ -11,7 +11,7 @@ spring:
       password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/hs2eticaret
+    url: jdbc:postgresql://localhost:5435/basiteticaret
     username: postgres
     password: root
   jpa:

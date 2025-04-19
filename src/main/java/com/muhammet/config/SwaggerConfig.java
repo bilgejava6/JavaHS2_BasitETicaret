@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(title = "Muhammet HOCA", version = "1.0"),
-        security = @SecurityRequirement(name = "bearerAuth") // Swagger UI için yetkilendirme gerektir
+        security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(
         name = "bearerAuth",
